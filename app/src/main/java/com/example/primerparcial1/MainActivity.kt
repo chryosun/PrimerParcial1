@@ -1,6 +1,7 @@
 package com.example.primerparcial1
 // Roque Virgilio Castillo Diaz 0101200203098
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -25,18 +26,14 @@ class MainActivity : AppCompatActivity() {
 
         //val Cuando se espera que el valor sea inmutable
 
-        val label= findViewById<TextView>(R.id.txtInicio)
         btn=findViewById<Button>(R.id.btn_capturar)
         val nombre=findViewById<EditText>(R.id.inputNombre)
 
         btn.setOnClickListener {
             val capturado= nombre.text.toString().trim()
             if(capturado.isNotEmpty()){
-                label.text=capturado
-                println("El nombre de capturado es de $capturado")
 
-                //Mensaje usando log
-                Log.d("capturas","El nombre capturado es $capturado")
+                mostrarActivity(capturado)
 
             }
             else{
@@ -74,5 +71,13 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy(){
         super.onDestroy()
         Log.d("Ciclo de Vida","Se inicio onDestroy")
+    }
+    //funcion para iniciar una actividad
+    private fun mostrarActivity(valor:String){
+        //declaracion de variable que contiene el intent
+        val navegacion= Intent(this,ResultadoActivity::class.java)
+        //por medio del putExtra le entregamos al intent un parametro
+        navegacion.putExtra("nombre",valor)
+        startActivity(navegacion)
     }
 }
