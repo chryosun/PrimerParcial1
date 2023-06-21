@@ -1,6 +1,7 @@
 package com.example.primerparcial1
 // Roque Virgilio Castillo Diaz 0101200203098
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -72,6 +74,12 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Log.d("Ciclo de Vida","Se inicio onDestroy")
     }
+    private val funcionParametro=
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if(it.resultCode== Activity.RESULT_OK){
+                mostrarSnackbar(it.data?.getStringExtra("mensaje").toString())
+            }
+        }
     //funcion para iniciar una actividad
     private fun mostrarActivity(valor:String){
         //declaracion de variable que contiene el intent
